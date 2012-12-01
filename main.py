@@ -48,7 +48,7 @@ class MetaJsonHandler(webapp2.RequestHandler):
       'send_delivery_count': True,
     }
 
-    self.response.add_header('Content-Type', 'application/json')
+    self.response.headers.add_header('Content-Type', 'application/json')
     self.response.out.write(json.dumps(value))
 
 # http://remote.bergcloud.com/developers/reference/edition
@@ -57,7 +57,7 @@ class EditionHandler(webapp2.RequestHandler):
     delivery_time = self.request.get('local_delivery_time')
     delivery_count = int(self.request.get('delivery_count', 0))
 
-    publication_issue = 1
+    publication_issue = 2
     emoji, title = get_publication_content(publication_issue)
     values = {
       'title': 'Daily Kaomoji',
@@ -67,7 +67,7 @@ class EditionHandler(webapp2.RequestHandler):
     }
     template = get_jinja2_template('publication.html')
 
-    self.response.add_header('ETag', 'lazy-etag-%d' % publication_issue)    
+    self.response.headers.add_header('ETag', 'lazy-etag-%d' % publication_issue)    
     self.response.out.write(template.render(values))
 
 
