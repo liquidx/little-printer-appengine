@@ -12,6 +12,10 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Example publication that serves up these guys:
+#
+# http://www.japaneseemoticons.net/all-japanese-emoticons/
+
 import json
 import jinja2
 import logging
