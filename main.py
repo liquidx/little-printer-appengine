@@ -35,8 +35,8 @@ class MetaJsonHandler(webapp2.RequestHandler):
     value = {
       'owner_email': 'alastair@liquidx.net',
       'publication_api_version': '1.0',
-      'name': 'Printing Me Softly',
-      'description': 'Soft things fit for print.',
+      'name': 'Daily Kaomoji',
+      'description': 'Things fit for print, softly.',
       'delivered_on': 'every day',
       'send_timezone_info': True, 
       'send_delivery_count': True,
@@ -54,7 +54,7 @@ class EditionHandler(webapp2.RequestHandler):
     # TODO: set an etag on the response.
     # self.response.add_header('ETag', '')
     values = {
-      'title': u'Daily emoji',
+      'title': u'Daily Kaomoji',
       'emoji': get_publication_content(1),
       'caption': u'Table Flip',
       'edition': u'1',
@@ -66,7 +66,7 @@ class EditionHandler(webapp2.RequestHandler):
 class SampleHandler(webapp2.RequestHandler):
   def get(self):
     values = {
-      'title': u'Daily emoji',
+      'title': u'Daily Kaomoji',
       'emoji': get_publication_content(1),
       'caption': u'Table Flip',
       'edition': u'1',
