@@ -31,7 +31,8 @@ def get_jinja2_template(path):
 def get_publication_content(number):
   publications_dir = os.path.join(os.path.dirname(__file__), 'publications')
   publication_filename = '%03d.txt' % number
-  return open(os.path.join(publications_dir, publication_filename)).read().decode('utf8')
+  contents = open(os.path.join(publications_dir, publication_filename)).read().decode('utf8')
+  return contents.strip().split(u'\n')
 
 
 # http://remote.bergcloud.com/developers/reference/metajson
@@ -56,25 +57,29 @@ class EditionHandler(webapp2.RequestHandler):
     delivery_time = self.request.get('local_delivery_time')
     delivery_count = int(self.request.get('delivery_count', 0))
 
-    # TODO: set an etag on the response.
-    # self.response.add_header('ETag', '')
+    publication_issue = 1
+    emoji, title = get_publication_content(publication_issue)
     values = {
-      'title': u'Daily Kaomoji',
-      'emoji': get_publication_content(1),
-      'caption': u'Table Flip',
-      'edition': u'1',
+      'title': 'Daily Kaomoji',
+      'emoji': emoji,
+      'caption': title,
+      'edition': publication_issue,
     }
     template = get_jinja2_template('publication.html')
+
+    self.response.add_header('ETag', 'lazy-etag-%d' % publication_issue)    
     self.response.out.write(template.render(values))
 
 
 class SampleHandler(webapp2.RequestHandler):
   def get(self):
+    publication_issue = 1
+    emoji, title = get_publication_content(publication_issue)
     values = {
       'title': u'Daily Kaomoji',
-      'emoji': get_publication_content(1),
-      'caption': u'Table Flip',
-      'edition': u'1',
+      'emoji': emoji,
+      'caption': title,
+      'edition': publication_issue,
     }
     template = get_jinja2_template('publication.html')
     self.response.out.write(template.render(values))
