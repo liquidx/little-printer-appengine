@@ -15,6 +15,7 @@
 # Example publication that serves up these guys:
 #
 # http://www.japaneseemoticons.net/all-japanese-emoticons/
+# http://www.tumblr.com/tagged/kaomoji
 
 import json
 import jinja2
